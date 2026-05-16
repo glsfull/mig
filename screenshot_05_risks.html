@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<title>Screenshot 5 – Risk Assessment</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif; background: #fff1f2; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
+  .phone { width: 390px; height: 844px; background: #f3f4f6; border-radius: 50px; overflow: hidden; position: relative; box-shadow: 0 40px 120px rgba(0,0,0,0.25), inset 0 0 0 2px #e5e7eb; }
+  .notch { position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 120px; height: 34px; background: #1a1a1a; border-radius: 0 0 18px 18px; z-index: 10; }
+  .status-bar { height: 50px; background: white; display: flex; align-items: flex-end; justify-content: space-between; padding: 0 28px 8px; font-size: 12px; font-weight: 600; color: #111; }
+  .topbar { background: white; border-bottom: 1px solid #f3f4f6; padding: 12px 16px; }
+  .topbar h1 { font-size: 15px; font-weight: 900; color: #111; }
+  .topbar p { font-size: 11px; color: #9ca3af; margin-top: 2px; }
+  .scroll { height: calc(844px - 50px - 57px - 64px); padding: 14px; display: flex; flex-direction: column; gap: 12px; overflow: hidden; }
+  .summary { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; }
+  .scard { border-radius: 14px; padding: 12px; text-align: center; border: 1px solid; }
+  .scard.red { background: #fef2f2; border-color: #fecaca; } .scard.red .num { color: #dc2626; } .scard.red .lbl { color: #dc2626; }
+  .scard.amb { background: #fffbeb; border-color: #fde68a; } .scard.amb .num { color: #d97706; } .scard.amb .lbl { color: #d97706; }
+  .scard.green { background: #ecfdf5; border-color: #a7f3d0; } .scard.green .num { color: #059669; } .scard.green .lbl { color: #059669; }
+  .num { font-size: 22px; font-weight: 900; }
+  .lbl { font-size: 10px; margin-top: 2px; }
+  .info { background: #eff6ff; border: 1px solid #bfdbfe; border-radius: 14px; padding: 12px; display: flex; gap: 8px; }
+  .info p { font-size: 10px; color: #1e40af; line-height: 1.5; }
+  .risk-card { background: white; border-radius: 18px; padding: 14px; border: 1px solid; }
+  .risk-card.red { border-color: #fecaca; }
+  .risk-card.amb { border-color: #fde68a; }
+  .risk-card.green { border-color: #a7f3d0; }
+  .rc-body { display: flex; align-items: center; gap: 12px; }
+  .ring { position: relative; width: 68px; height: 68px; flex-shrink: 0; }
+  .ring svg { width: 68px; height: 68px; transform: rotate(-90deg); }
+  .ring-num { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; }
+  .ring-num span { font-size: 15px; font-weight: 900; }
+  .rc-info { flex: 1; min-width: 0; }
+  .risk-emoji { font-size: 14px; }
+  .risk-badge { font-size: 9px; font-weight: 700; padding: 3px 8px; border-radius: 20px; display: inline-block; margin-bottom: 4px; }
+  .rb-red { background: #fecaca; color: #991b1b; }
+  .rb-amb { background: #fde68a; color: #92400e; }
+  .rb-green { background: #a7f3d0; color: #065f46; }
+  .risk-name { font-size: 13px; font-weight: 800; color: #111; line-height: 1.3; }
+  .risk-desc { font-size: 11px; color: #6b7280; margin-top: 3px; line-height: 1.4; }
+  .bottom-nav { position: absolute; bottom: 0; left: 0; right: 0; height: 64px; background: white; border-top: 1px solid #f3f4f6; display: grid; grid-template-columns: repeat(5, 1fr); }
+  .nav-item { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px; color: #9ca3af; }
+  .nav-item.active { color: #10b981; }
+  .nav-icon { font-size: 14px; }
+  .nav-item span { font-size: 9px; font-weight: 600; }
+  .caption { text-align: center; margin-top: 24px; font-size: 15px; font-weight: 700; color: #374151; }
+</style>
+</head>
+<body>
+<div style="display:flex;flex-direction:column;align-items:center;padding:40px 20px;background:linear-gradient(135deg,#fff1f2,#ffe4e6);">
+  <div class="phone">
+    <div class="notch"></div>
+    <div class="status-bar"><span>9:41</span><span>●●●</span></div>
+    <div class="topbar">
+      <h1>Оценка рисков</h1>
+      <p>На основе ваших анализов и профиля</p>
+    </div>
+    <div class="scroll">
+      <div class="summary">
+        <div class="scard red"><div class="num">1</div><div class="lbl">Высокий</div></div>
+        <div class="scard amb"><div class="num">1</div><div class="lbl">Средний</div></div>
+        <div class="scard green"><div class="num">2</div><div class="lbl">Низкий</div></div>
+      </div>
+      <div class="info">
+        <span style="font-size:16px;flex-shrink:0;">🛡</span>
+        <p>Оценка рассчитывается по научно-обоснованным формулам. Не является медицинским диагнозом.</p>
+      </div>
+      <div class="risk-card red">
+        <div class="rc-body">
+          <div class="ring">
+            <svg viewBox="0 0 68 68">
+              <circle cx="34" cy="34" r="26" fill="none" stroke="#fee2e2" stroke-width="6"/>
+              <circle cx="34" cy="34" r="26" fill="none" stroke="#dc2626" stroke-width="6" stroke-dasharray="127 163" stroke-linecap="round"/>
+            </svg>
+            <div class="ring-num"><span style="color:#dc2626;">78%</span></div>
+          </div>
+          <div class="rc-info">
+            <div><span class="risk-emoji">🔴</span> <span class="risk-badge rb-red">Высокий риск</span></div>
+            <div class="risk-name">Железодефицитная анемия</div>
+            <div class="risk-desc">Гемоглобин 98 г/л, СОЭ 28 мм/ч, дефицит витамина D</div>
+          </div>
+        </div>
+      </div>
+      <div class="risk-card amb">
+        <div class="rc-body">
+          <div class="ring">
+            <svg viewBox="0 0 68 68">
+              <circle cx="34" cy="34" r="26" fill="none" stroke="#fef3c7" stroke-width="6"/>
+              <circle cx="34" cy="34" r="26" fill="none" stroke="#f59e0b" stroke-width="6" stroke-dasharray="55 163" stroke-linecap="round"/>
+            </svg>
+            <div class="ring-num"><span style="color:#f59e0b;">34%</span></div>
+          </div>
+          <div class="rc-info">
+            <div><span class="risk-emoji">❤️</span> <span class="risk-badge rb-amb">Средний риск</span></div>
+            <div class="risk-name">Сердечно-сосудистые заболевания</div>
+            <div class="risk-desc">Холестерин 6.4 ммоль/л (повышен)</div>
+          </div>
+        </div>
+      </div>
+      <div class="risk-card green">
+        <div class="rc-body">
+          <div class="ring">
+            <svg viewBox="0 0 68 68">
+              <circle cx="34" cy="34" r="26" fill="none" stroke="#d1fae5" stroke-width="6"/>
+              <circle cx="34" cy="34" r="26" fill="none" stroke="#10b981" stroke-width="6" stroke-dasharray="20 163" stroke-linecap="round"/>
+            </svg>
+            <div class="ring-num"><span style="color:#10b981;">12%</span></div>
+          </div>
+          <div class="rc-info">
+            <div><span class="risk-emoji">🩸</span> <span class="risk-badge rb-green">Низкий риск</span></div>
+            <div class="risk-name">Сахарный диабет 2 типа</div>
+            <div class="risk-desc">Глюкоза 5.4 ммоль/л в норме</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="bottom-nav">
+      <div class="nav-item"><div class="nav-icon">🏠</div><span>Главная</span></div>
+      <div class="nav-item"><div class="nav-icon">📊</div><span>Анализы</span></div>
+      <div class="nav-item"><div class="nav-icon">🧠</div><span>ИИ</span></div>
+      <div class="nav-item"><div class="nav-icon">💊</div><span>Лекарства</span></div>
+      <div class="nav-item active"><div class="nav-icon">👤</div><span>Профиль</span></div>
+    </div>
+  </div>
+  <p class="caption">Персональная оценка рисков</p>
+</div>
+</body>
+</html>

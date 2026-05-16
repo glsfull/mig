@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Screenshot 1 – Home</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', sans-serif; background: #f8f9fa; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
+  .phone { width: 390px; height: 844px; background: #f3f4f6; border-radius: 50px; overflow: hidden; position: relative; box-shadow: 0 40px 120px rgba(0,0,0,0.25), inset 0 0 0 2px #e5e7eb; }
+  .status-bar { height: 50px; background: white; display: flex; align-items: flex-end; justify-content: space-between; padding: 0 28px 8px; font-size: 12px; font-weight: 600; color: #111; }
+  .notch { position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 120px; height: 34px; background: #1a1a1a; border-radius: 0 0 18px 18px; z-index: 10; }
+  .topbar { background: white; border-bottom: 1px solid #f3f4f6; padding: 14px 16px; display: flex; align-items: center; gap: 10px; }
+  .logo { width: 32px; height: 32px; background: #10b981; border-radius: 10px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .logo svg { width: 16px; height: 16px; fill: white; }
+  .topbar-title { font-size: 15px; font-weight: 900; color: #111; flex: 1; }
+  .avatar { width: 30px; height: 30px; background: #10b981; border-radius: 9px; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 900; color: white; }
+  .scroll { overflow-y: auto; height: calc(844px - 50px - 57px - 64px); padding: 16px; display: flex; flex-direction: column; gap: 14px; }
+  /* Notification */
+  .notif { background: #ecfdf5; border: 1px solid #a7f3d0; border-radius: 16px; padding: 14px; display: flex; align-items: center; gap: 10px; }
+  .notif-icon { width: 32px; height: 32px; background: #10b981; border-radius: 10px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .notif-text p:first-child { font-size: 13px; font-weight: 700; color: #065f46; }
+  .notif-text p:last-child { font-size: 11px; color: #059669; margin-top: 2px; }
+  /* Hero card */
+  .hero { background: linear-gradient(135deg, #111827, #1f2937); border-radius: 24px; padding: 22px; position: relative; overflow: hidden; }
+  .hero::after { content: ''; position: absolute; top: -40px; right: -40px; width: 140px; height: 140px; background: rgba(16,185,129,0.15); border-radius: 50%; }
+  .hero-greeting { font-size: 13px; color: #6b7280; margin-bottom: 4px; }
+  .hero-name { font-size: 22px; font-weight: 900; color: white; margin-bottom: 14px; }
+  .hero-body { display: flex; align-items: center; gap: 16px; }
+  .hero-info { flex: 1; }
+  .hero-dot { display: flex; align-items: center; gap: 6px; margin-bottom: 6px; }
+  .dot { width: 8px; height: 8px; border-radius: 50%; background: #34d399; flex-shrink: 0; }
+  .hero-info p { font-size: 12px; color: #9ca3af; }
+  .ring-wrap { position: relative; width: 80px; height: 80px; flex-shrink: 0; }
+  .ring-wrap svg { width: 80px; height: 80px; transform: rotate(-90deg); }
+  .ring-num { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+  .ring-num span:first-child { font-size: 20px; font-weight: 900; color: white; }
+  .ring-num span:last-child { font-size: 9px; color: #6b7280; }
+  /* Quick actions */
+  .quick { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .qa { border-radius: 18px; padding: 16px; text-align: left; }
+  .qa.green { background: #10b981; }
+  .qa.dark { background: #111827; }
+  .qa-icon { width: 24px; height: 24px; margin-bottom: 8px; opacity: 0.9; }
+  .qa p:first-of-type { font-size: 13px; font-weight: 800; color: white; }
+  .qa p:last-of-type { font-size: 10px; color: rgba(255,255,255,0.6); margin-top: 3px; }
+  /* Alert */
+  .alert { background: #fffbeb; border: 1px solid #fde68a; border-radius: 16px; padding: 14px; display: flex; align-items: center; gap: 10px; }
+  .alert-icon { width: 34px; height: 34px; background: #fef3c7; border-radius: 10px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 16px; }
+  .alert-text p:first-child { font-size: 13px; font-weight: 700; color: #92400e; }
+  .alert-text p:last-child { font-size: 11px; color: #b45309; margin-top: 2px; }
+  .arrow { margin-left: auto; color: #d97706; font-size: 14px; }
+  /* Feature grid */
+  .feat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .feat { border-radius: 16px; padding: 14px; }
+  .feat-icon { width: 32px; height: 32px; border-radius: 10px; display: flex; align-items: center; justify-content: center; margin-bottom: 8px; font-size: 15px; }
+  .feat p { font-size: 12px; font-weight: 700; }
+  .feat.blue { background: #eff6ff; } .feat.blue p { color: #1d4ed8; } .feat.blue .feat-icon { background: #dbeafe; }
+  .feat.rose { background: #fff1f2; } .feat.rose p { color: #be123c; } .feat.rose .feat-icon { background: #ffe4e6; }
+  .feat.teal { background: #f0fdfa; } .feat.teal p { color: #0f766e; } .feat.teal .feat-icon { background: #ccfbf1; }
+  .feat.amber { background: #fffbeb; } .feat.amber p { color: #92400e; } .feat.amber .feat-icon { background: #fef3c7; }
+  /* Bottom nav */
+  .bottom-nav { position: absolute; bottom: 0; left: 0; right: 0; height: 64px; background: white; border-top: 1px solid #f3f4f6; display: grid; grid-template-columns: repeat(5, 1fr); }
+  .nav-item { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px; }
+  .nav-item.active { color: #10b981; }
+  .nav-item:not(.active) { color: #9ca3af; }
+  .nav-icon { width: 22px; height: 22px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 14px; }
+  .active .nav-icon { background: #ecfdf5; }
+  .nav-item span { font-size: 9px; font-weight: 600; }
+  .caption { text-align: center; margin-top: 24px; font-family: -apple-system, sans-serif; font-size: 15px; font-weight: 700; color: #374151; }
+</style>
+</head>
+<body>
+<div style="display:flex;flex-direction:column;align-items:center;padding:40px 20px;background:linear-gradient(135deg,#ecfdf5,#f0fdf4);">
+  <div class="phone">
+    <div class="notch"></div>
+    <div class="status-bar"><span>9:41</span><span>●●●</span></div>
+    <div class="topbar">
+      <div class="logo"><svg viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></div>
+      <div class="topbar-title">Мои анализы</div>
+      <div class="avatar">ИИ</div>
+    </div>
+    <div class="scroll">
+      <div class="notif">
+        <div class="notif-icon" style="font-size:16px;">🔔</div>
+        <div class="notif-text"><p>Напоминание о лекарстве</p><p>09:00 — Витамин D3, 1 капсула</p></div>
+      </div>
+      <div class="hero">
+        <div class="hero-greeting">Доброе утро,</div>
+        <div class="hero-name">Иван</div>
+        <div class="hero-body">
+          <div class="hero-info">
+            <div class="hero-dot"><div class="dot"></div><p style="color:#d1fae5;font-size:12px;font-weight:600;">Требует внимания</p></div>
+            <p>Последний анализ: 13.05.2026</p>
+          </div>
+          <div class="ring-wrap">
+            <svg viewBox="0 0 80 80">
+              <circle cx="40" cy="40" r="30" fill="none" stroke="#374151" stroke-width="7"/>
+              <circle cx="40" cy="40" r="30" fill="none" stroke="#f59e0b" stroke-width="7" stroke-dasharray="119 189" stroke-linecap="round"/>
+            </svg>
+            <div class="ring-num"><span>65</span><span>из 100</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="quick">
+        <div class="qa green"><div class="qa-icon">⬆</div><p>Загрузить анализ</p><p>PDF, фото или скан</p></div>
+        <div class="qa dark"><div class="qa-icon">🧠</div><p>ИИ-диагностика</p><p>Опишите симптомы</p></div>
+      </div>
+      <div class="alert">
+        <div class="alert-icon">⚠️</div>
+        <div class="alert-text"><p>4 показателя вне нормы</p><p>Гемоглобин, Лейкоциты и др.</p></div>
+        <div class="arrow">›</div>
+      </div>
+      <div class="feat-grid">
+        <div class="feat blue"><div class="feat-icon">📈</div><p>Динамика</p></div>
+        <div class="feat rose"><div class="feat-icon">🛡</div><p>Оценка рисков</p></div>
+        <div class="feat teal"><div class="feat-icon">📄</div><p>Отчёт врачу</p></div>
+        <div class="feat amber"><div class="feat-icon">📚</div><p>Справочник</p></div>
+      </div>
+    </div>
+    <div class="bottom-nav">
+      <div class="nav-item active"><div class="nav-icon">🏠</div><span>Главная</span></div>
+      <div class="nav-item"><div class="nav-icon">📊</div><span>Анализы</span></div>
+      <div class="nav-item"><div class="nav-icon">🧠</div><span>ИИ</span></div>
+      <div class="nav-item"><div class="nav-icon">💊</div><span>Лекарства</span></div>
+      <div class="nav-item"><div class="nav-icon">👤</div><span>Профиль</span></div>
+    </div>
+  </div>
+  <p class="caption">Обзор здоровья</p>
+</div>
+</body>
+</html>

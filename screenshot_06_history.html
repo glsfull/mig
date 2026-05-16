@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<title>Screenshot 6 – History & Trends</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif; background: #eff6ff; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
+  .phone { width: 390px; height: 844px; background: #f3f4f6; border-radius: 50px; overflow: hidden; position: relative; box-shadow: 0 40px 120px rgba(0,0,0,0.2), inset 0 0 0 2px #e5e7eb; }
+  .notch { position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 120px; height: 34px; background: #1a1a1a; border-radius: 0 0 18px 18px; z-index: 10; }
+  .status-bar { height: 50px; background: white; display: flex; align-items: flex-end; justify-content: space-between; padding: 0 28px 8px; font-size: 12px; font-weight: 600; color: #111; }
+  .topbar { background: white; border-bottom: 1px solid #f3f4f6; padding: 12px 16px; }
+  .topbar h1 { font-size: 15px; font-weight: 900; color: #111; }
+  .scroll { height: calc(844px - 50px - 57px - 64px); padding: 14px; display: flex; flex-direction: column; gap: 12px; overflow: hidden; }
+  .tabs { background: #f3f4f6; border-radius: 16px; padding: 4px; display: grid; grid-template-columns: 1fr 1fr; gap: 4px; }
+  .tab { padding: 10px; border-radius: 12px; text-align: center; font-size: 12px; font-weight: 700; color: #6b7280; }
+  .tab.active { background: white; color: #111; box-shadow: 0 1px 3px rgba(0,0,0,0.08); }
+  .hist-item { background: white; border-radius: 18px; border: 1px solid #f3f4f6; padding: 14px; }
+  .hi-top { display: flex; align-items: flex-start; gap: 10px; }
+  .hi-icon { width: 38px; height: 38px; background: #f3f4f6; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 16px; flex-shrink: 0; }
+  .hi-info { flex: 1; min-width: 0; }
+  .hi-type { font-size: 13px; font-weight: 800; color: #111; }
+  .hi-date { font-size: 10px; color: #9ca3af; margin-top: 2px; }
+  .hi-right { display: flex; flex-direction: column; align-items: flex-end; gap: 4px; flex-shrink: 0; }
+  .hi-badge { font-size: 9px; font-weight: 700; padding: 3px 8px; border-radius: 20px; display: flex; align-items: center; gap: 3px; }
+  .b-amb { background: #fffbeb; color: #92400e; }
+  .b-green { background: #ecfdf5; color: #065f46; }
+  .score-num { font-size: 16px; font-weight: 900; }
+  .score-lbl { font-size: 8px; color: #9ca3af; }
+  .hi-bar { margin-top: 8px; height: 6px; background: #f3f4f6; border-radius: 3px; overflow: hidden; }
+  .hi-bar-fill { height: 100%; border-radius: 3px; }
+  /* Trend chart */
+  .trend { background: white; border-radius: 18px; border: 1px solid #f3f4f6; padding: 14px; }
+  .trend-head { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 10px; }
+  .trend-name { font-size: 13px; font-weight: 800; color: #111; }
+  .trend-norm { font-size: 10px; color: #9ca3af; margin-top: 2px; }
+  .trend-val { font-size: 18px; font-weight: 900; }
+  .trend-unit { font-size: 10px; color: #9ca3af; }
+  .chart { width: 100%; height: 60px; }
+  .x-labels { display: flex; justify-content: space-between; margin-top: 4px; }
+  .x-labels span { font-size: 9px; color: #9ca3af; }
+  .bottom-nav { position: absolute; bottom: 0; left: 0; right: 0; height: 64px; background: white; border-top: 1px solid #f3f4f6; display: grid; grid-template-columns: repeat(5, 1fr); }
+  .nav-item { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px; color: #9ca3af; }
+  .nav-item.active { color: #10b981; }
+  .nav-icon { font-size: 14px; }
+  .nav-item span { font-size: 9px; font-weight: 600; }
+  .caption { text-align: center; margin-top: 24px; font-size: 15px; font-weight: 700; color: #374151; }
+</style>
+</head>
+<body>
+<div style="display:flex;flex-direction:column;align-items:center;padding:40px 20px;background:linear-gradient(135deg,#dbeafe,#eff6ff);">
+  <div class="phone">
+    <div class="notch"></div>
+    <div class="status-bar"><span>9:41</span><span>●●●</span></div>
+    <div class="topbar"><h1>История анализов</h1></div>
+    <div class="scroll">
+      <div class="tabs">
+        <div class="tab">История записей</div>
+        <div class="tab active">Динамика</div>
+      </div>
+      <div style="font-size:10px;color:#9ca3af;">Динамика за 9 месяцев</div>
+      <div class="trend">
+        <div class="trend-head">
+          <div><div class="trend-name">Гемоглобин</div><div class="trend-norm">норма: 120–160 г/л</div></div>
+          <div style="text-align:right;"><span class="trend-val" style="color:#dc2626;">98</span> <span class="trend-unit">г/л</span></div>
+        </div>
+        <svg class="chart" viewBox="0 0 340 60" preserveAspectRatio="none">
+          <rect x="60" y="5" width="220" height="38" fill="#d1fae5" opacity="0.4"/>
+          <path d="M 20 22 L 85 28 L 150 32 L 215 36 L 280 42" fill="none" stroke="#f59e0b" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M 20 22 L 85 28 L 150 32 L 215 36 L 280 42 L 280 60 L 20 60 Z" fill="#fef3c7" opacity="0.3"/>
+          <circle cx="20" cy="22" r="4" fill="#f59e0b" stroke="white" stroke-width="1.5"/>
+          <circle cx="85" cy="28" r="4" fill="#f59e0b" stroke="white" stroke-width="1.5"/>
+          <circle cx="150" cy="32" r="4" fill="#f59e0b" stroke="white" stroke-width="1.5"/>
+          <circle cx="215" cy="36" r="4" fill="#f59e0b" stroke="white" stroke-width="1.5"/>
+          <circle cx="280" cy="42" r="5" fill="#dc2626" stroke="white" stroke-width="1.5"/>
+        </svg>
+        <div class="x-labels"><span>Авг 25</span><span>Ноя 25</span><span>Фев 26</span><span>Апр 26</span><span>Май 26</span></div>
+      </div>
+      <div class="trend">
+        <div class="trend-head">
+          <div><div class="trend-name">Холестерин</div><div class="trend-norm">норма: 3–5.2 ммоль/л</div></div>
+          <div style="text-align:right;"><span class="trend-val" style="color:#d97706;">6.4</span> <span class="trend-unit">ммоль/л</span></div>
+        </div>
+        <svg class="chart" viewBox="0 0 340 60" preserveAspectRatio="none">
+          <rect x="30" y="8" width="240" height="28" fill="#d1fae5" opacity="0.4"/>
+          <path d="M 20 36 L 85 30 L 150 24 L 215 20 L 280 14" fill="none" stroke="#f59e0b" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M 20 36 L 85 30 L 150 24 L 215 20 L 280 14 L 280 60 L 20 60 Z" fill="#fef3c7" opacity="0.3"/>
+          <circle cx="20" cy="36" r="4" fill="#10b981" stroke="white" stroke-width="1.5"/>
+          <circle cx="85" cy="30" r="4" fill="#f59e0b" stroke="white" stroke-width="1.5"/>
+          <circle cx="150" cy="24" r="4" fill="#f59e0b" stroke="white" stroke-width="1.5"/>
+          <circle cx="215" cy="20" r="4" fill="#f59e0b" stroke="white" stroke-width="1.5"/>
+          <circle cx="280" cy="14" r="5" fill="#dc2626" stroke="white" stroke-width="1.5"/>
+        </svg>
+        <div class="x-labels"><span>Авг 25</span><span>Ноя 25</span><span>Фев 26</span><span>Апр 26</span><span>Май 26</span></div>
+      </div>
+      <div class="trend">
+        <div class="trend-head">
+          <div><div class="trend-name">Витамин D</div><div class="trend-norm">норма: 30–100 нг/мл</div></div>
+          <div style="text-align:right;"><span class="trend-val" style="color:#2563eb;">18</span> <span class="trend-unit">нг/мл</span></div>
+        </div>
+        <svg class="chart" viewBox="0 0 340 60" preserveAspectRatio="none">
+          <rect x="40" y="2" width="260" height="36" fill="#d1fae5" opacity="0.4"/>
+          <path d="M 20 42 L 85 46 L 150 50 L 215 48 L 280 46" fill="none" stroke="#3b82f6" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M 20 42 L 85 46 L 150 50 L 215 48 L 280 46 L 280 60 L 20 60 Z" fill="#dbeafe" opacity="0.4"/>
+          <circle cx="20" cy="42" r="4" fill="#3b82f6" stroke="white" stroke-width="1.5"/>
+          <circle cx="85" cy="46" r="4" fill="#3b82f6" stroke="white" stroke-width="1.5"/>
+          <circle cx="150" cy="50" r="5" fill="#2563eb" stroke="white" stroke-width="1.5"/>
+          <circle cx="215" cy="48" r="4" fill="#3b82f6" stroke="white" stroke-width="1.5"/>
+          <circle cx="280" cy="46" r="4" fill="#3b82f6" stroke="white" stroke-width="1.5"/>
+        </svg>
+        <div class="x-labels"><span>Авг 25</span><span>Ноя 25</span><span>Фев 26</span><span>Апр 26</span><span>Май 26</span></div>
+      </div>
+    </div>
+    <div class="bottom-nav">
+      <div class="nav-item"><div class="nav-icon">🏠</div><span>Главная</span></div>
+      <div class="nav-item active" style="color:#10b981;"><div class="nav-icon">📊</div><span>Анализы</span></div>
+      <div class="nav-item"><div class="nav-icon">🧠</div><span>ИИ</span></div>
+      <div class="nav-item"><div class="nav-icon">💊</div><span>Лекарства</span></div>
+      <div class="nav-item"><div class="nav-icon">👤</div><span>Профиль</span></div>
+    </div>
+  </div>
+  <p class="caption">Динамика показателей во времени</p>
+</div>
+</body>
+</html>
